@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babacan Portal | Muhasebe, Yazılım & Finans</title>
+    <style>
+        :root {
+            --bg-color: #070a13;
+            --card-bg: linear-gradient(145deg, #131b2e 0%, #0a0f1d 100%);
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #38bdf8; /* Safir Mavi */
+            --accent-secondary: #34d399; /* Finans Yeşil */
+            --accent-gold: #fbbf24; /* Yazılım & Dikkat Altını */
+            --border-color: rgba(56, 189, 248, 0.25);
+            --item-bg: #111827;
+        }
+
+        .light-mode {
+            --bg-color: #f1f5f9;
+            --card-bg: linear-gradient(145deg, #ffffff 0%, #e2e8f0 100%);
+            --text-color: #0f172a;
+            --text-muted: #475569;
+            --accent-primary: #0284c7;
+            --accent-secondary: #059669;
+            --accent-gold: #d97706;
+            --border-color: rgba(2, 132, 199, 0.25);
+            --item-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background 0.3s, color 0.3s, border 0.3s;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        /* CANLI PİYASA ŞERİDİ */
+        .ticker-bar {
+            background: var(--item-bg);
+            border: 2px solid var(--accent-gold);
+            padding: 12px 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 0.92rem;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.1);
+        }
+
+        .ticker-item strong {
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        /* ÜST MENÜ (SEKMELER) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.1);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-brand {
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .theme-toggle {
+            background: var(--accent-gold);
+            color: #0f172a;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(251, 191, 36, 0.3);
+        }
+
+        .theme-toggle:hover {
+            opacity: 0.9;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            padding: 45px 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            margin-bottom: 25px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            color: var(--accent-primary);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .btn-sub {
+            display: inline-block;
+            background-color: #ef4444;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-sub:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+
+        /* KART DÜZENİ */
+        .card-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 25px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-box h2 {
+            color: var(--text-color);
+            font-size: 1.35rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* MAKALE VE KÖPRÜ KUTULARI */
+        .article-box {
+            background: var(--item-bg);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-primary);
+            margin-bottom: 15px;
+        }
+
+        .article-box h3 {
+            color: var(--accent-primary);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .article-box p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .external-link {
+            display: inline-block;
+            background: var(--accent-primary);
+            color: #0f172a;
+            padding: 7px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .external-link:hover {
+            opacity: 0.85;
+        }
+
+        /* RESMİ PORTALLAR GRID */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .portal-btn {
+            display: block;
+            background: var(--item-bg);
+            color: var(--text-color);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .portal-btn:hover {
+            background: var(--accent-primary);
+            color: #0f172a;
+            border-color: var(--accent-primary);
+        }
+
+        /* ORTA KISIM: YOUTUBE SHORTS (YAN YANA VE EŞİT) */
+        .shorts-section {
+            text-align: center;
+        }
+
+        .shorts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 600px) {
+            .shorts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .shorts-item {
+            background: var(--item-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .shorts-wrapper {
+            position: relative;
+            padding-bottom: 177.77%; /* 9:16 Shorts Oranı */
+            height: 0;
+        }
+
+        .shorts-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .shorts-desc {
+            padding: 10px;
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* KDV HESAPLAYICI */
+        .calc-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .calc-row input, .calc-row select {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--item-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .calc-btn {
+            width: 100%;
+            background: var(--accent-secondary);
+            color: #0f172a;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .calc-btn:hover {
+            opacity: 0.9;
+        }
+
+        .calc-out {
+            margin-top: 12px;
+            padding: 12px;
+            background: var(--item-bg);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--accent-secondary);
+            border: 1px solid var(--accent-secondary);
+            font-weight: bold;
+        }
+
+        /* SAĞ ALT KÖŞE FLOATING CHATBOT WIDGET (REVİZE EDİLDİ) */
+        .chat-widget-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--accent-primary);
+            color: #070a13;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(56, 189, 248, 0.6);
+            z-index: 99999;
+            border: none;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .chat-widget-btn:hover {
+            transform: scale(1.12);
+            background: #7dd3fc;
+        }
+
+        .chat-popup {
+            position: fixed;
+            bottom: 95px;
+            right: 25px;
+            width: 320px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-primary);
+            border-radius: 16px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+            display: none; /* Varsayılan gizli, JS ile açılacak */
+            flex-direction: column;
+            z-index: 99998;
+            overflow: hidden;
+        }
+
+        .chat-popup.open {
+            display: flex !important;
+        }
+
+        .chat-header {
+            background: var(--accent-primary);
+            color: #070a13;
+            padding: 12px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #070a13;
+            font-weight: bold;
+        }
+
+        .chat-body {
+            padding: 15px;
+            height: 250px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--item-bg);
+        }
+
+        .chat-msg {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+
+        .chat-msg.bot {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--text-color);
+            align-self: flex-start;
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        .chat-msg.user {
+            background: var(--accent-primary);
+            color: #070a13;
+            align-self: flex-end;
+            font-weight: 600;
+        }
+
+        .chat-footer {
+            padding: 10px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .chat-quick-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chat-opt-btn {
+            background: var(--item-bg);
+            color: var(--accent-primary);
+            border: 1px solid var(--accent-primary);
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .chat-opt-btn:hover {
+            background: var(--accent-primary);
+            color: #070a13;
+        }
+
+        /* İLETİŞİM BÖLÜMÜ (EN ALTTA) */
+        .contact-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 2px solid var(--border-color);
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--item-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-item p {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .contact-item strong {
+            color: var(--accent-primary);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 30px;
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- CANLI PİYASA ŞERİDİ -->
+        <div class="ticker-bar">
+            <span class="ticker-item">📊 Finans & Döviz Piyasası</span>
+            <span class="ticker-item">💵 USD/TRY: <strong id="usdKur">36.25 TL</strong></span>
+            <span class="ticker-item">💶 EUR/TRY: <strong id="eurKur">37.90 TL</strong></span>
+            <span class="ticker-item">🪙 Altın (Gram): <strong id="altinKur">3,050 TL</strong></span>
+        </div>
+
+        <!-- ÜST NAVİGASYON (SEKMELER) -->
+        <nav class="navbar">
+            <div class="nav-brand">⚡ Babacan Portal</div>
+            <ul class="nav-links">
+                <li><a href="#mevzuat-bolumu">Vergi & SGK Mevzuatı</a></li>
+                <li><a href="#shorts-bolumu">YouTube & Shorts</a></li>
+                <li><a href="#iletisim-bolumu">İletişim</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeBtn">🌓 Tema Değiştir</button>
+        </nav>
+
+        <!-- HEADER / GİRİŞ -->
+        <header>
+            <h1>Recep Babacık</h1>
+            <p>Muhasebe Danışmanlık, SGK Çözümleri & Babacan Rotası</p>
+            <a href="https://www.youtube.com/@babacanrotasi" target="_blank" class="btn-sub">
+                ▶ YouTube Kanalıma Abone Ol
+            </a>
+        </header>
+
+        <!-- 1. GÜNCEL MEVZUAT VE SGK BİLGİLERİ KÖPRÜSÜ -->
+        <div class="card-box" id="mevzuat-bolumu">
+            <h2>⚖️ Güncel Mali Mevzuat & SGK Teşvik Köprüsü</h2>
+            
+            <div class="article-box">
+                <h3>Vergi ve Mali Müşavirlik Çözümleri</h3>
+                <p>E-defter, e-fatura entegrasyonları, beyanname takvimi ve dönemsel mali kapanışlar hakkında en güncel profesyonel makale ve rehberlere ulaşın.</p>
+                <a href="https://www.muhasebetr.com" target="_blank" class="external-link">🔗 Muhasebe TR Güncel Mevzuat</a>
+            </div>
+
+            <div class="article-box">
+                <h3>SGK Prim Teşvikleri & İşveren Uygulamaları</h3>
+                <p>5510 sayılı kanun teşvikleri, sigorta prim destekleri ve işe giriş/çıkış süreçlerindeki yasal düzenlemeleri yakından takip edin.</p>
+                <a href="https://www.sgk.gov.tr" target="_blank" class="external-link">🔗 SGK Resmi Mevzuat Portalı</a>
+            </div>
+
+            <!-- HIZLI RESMİ PORTALLAR -->
+            <h3 style="font-size: 1.05rem; margin: 15px 0 10px 0; color: var(--text-color);">🚀 Hızlı Resmi Bağlantılar</h3>
+            <div class="portal-grid">
+                <a href="https://www.gib.gov.tr" target="_blank" class="portal-btn">GİB İnteraktif Vergi</a>
+                <a href="https://uyg.sgk.gov.tr/Kasin/faces/jsp/giris.jsp" target="_blank" class="portal-btn">SGK E-Bildirge</a>
+                <a href="https://www.turkiye.gov.tr" target="_blank" class="portal-btn">e-Devlet Kapısı</a>
+                <a href="https://www.resmigazete.gov.tr" target="_blank" class="portal-btn">Resmî Gazete</a>
+            </div>
+        </div>
+
+        <!-- HIZLI KDV HESAPLAYICI -->
+        <div class="card-box">
+            <h2>🧮 Hızlı KDV & Matrah Hesaplayıcı</h2>
+            <div class="calc-row">
+                <input type="number" id="tutar" placeholder="Tutar (TL)">
+                <select id="kdvOrani">
+                    <option value="20">%20 KDV</option>
+                    <option value="10">%10 KDV</option>
+                    <option value="1">%1 KDV</option>
+                </select>
+            </div>
+            <button class="calc-btn" id="hesaplaBtn">Hesapla</button>
+            <div id="kdvSonuc" class="calc-out" style="display: none;"></div>
+        </div>
+
+        <!-- 2. ORTADA YAN YANA VE EŞİT YOUTUBE SHORTS VİTRİNİ -->
+        <div class="card-box shorts-section" id="shorts-bolumu">
+            <h2>📱 Babacan Rotası - Öne Çıkan Shorts</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Yazılım ve güncel içeriklerime göz atın!</p>
+            
+            <div class="shorts-grid">
+                <!-- 1. Shorts Videonuz -->
+                <div class="shorts-item">
+                    <div class="shorts-wrapper">
+                        <iframe src="https://www.youtube.com/embed/1_HrwnbQ_-M" allowfullscreen></iframe>
+                    </div>
+                    <div class="shorts-desc">Shorts #1</div>
+                </div>
+
+                <!-- 2. Shorts Videonuz -->
+                <div class="shorts-item">
+                    <div class="shorts-wrapper">
+                        <iframe src="https://www.youtube.com/embed/CDZWCvcXq20" allowfullscreen></iframe>
+                    </div>
+                    <div class="shorts-desc">Shorts #2</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. İLETİŞİM BİLGİLERİ (EN ALTTA) -->
+        <div class="contact-box" id="iletisim-bolumu">
+            <h2>📞 İletişim Bilgileri</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <p><strong>Ad Soyad:</strong> Recep Babacık</p>
+                    <p><strong>Konum:</strong> Antalya / Döşemealtı</p>
+                </div>
+                <div class="contact-item">
+                    <p><strong>Telefon:</strong> <a href="tel:05414483069" style="color: var(--accent-primary); text-decoration: none;">0541 448 30 69</a></p>
+                    <p><strong>E-Posta:</strong> <a href="mailto:recep_baback@hotmail.com" style="color: var(--accent-primary); text-decoration: none;">recep_baback@hotmail.com</a></p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Babacan Portal | Recep Babacık - Tüm Hakları Saklıdır.</p>
+        </footer>
+
+    </div>
+
+    <!-- SAĞ ALT KÖŞE CHATBOT WIDGET -->
+    <button class="chat-widget-btn" id="chatBtn" title="Asistanı Aç">💬</button>
+
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+            <span>🤖 Babacan Asistan</span>
+            <button class="chat-close" id="chatClose">&times;</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-msg bot">Merhaba! Ben Babacan Asistan. Size nasıl yardımcı olabilirim? Aşağıdan bir soru seçebilirsiniz.</div>
+        </div>
+        <div class="chat-footer">
+            <div class="chat-quick-options">
+                <button class="chat-opt-btn" onclick="asistanYanitla('kdv')">📅 KDV Ne Zaman?</button>
+                <button class="chat-opt-btn" onclick="asistanYanitla('iletisim')">📞 İletişim</button>
+                <button class="chat-opt-btn" onclick="asistanYanitla('sgk')">💼 SGK Teşvik</button>
+                <button class="chat-opt-btn" onclick="asistanYanitla('konum')">📍 Konum</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* KESİN ÇALIŞAN CHATBOT AÇ/KAPA KONTROLÜ */
+        const chatBtn = document.getElementById('chatBtn');
+        const chatPopup = document.getElementById('chatPopup');
+        const chatClose = document.getElementById('chatClose');
+
+        chatBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            chatPopup.classList.toggle('open');
+        });
+
+        chatClose.addEventListener('click', function() {
+            chatPopup.classList.remove('open');
+        });
+
+        /* ASİSTAN YANIT MOTORU */
+        function asistanYanitla(tip) {
+            const body = document.getElementById('chatBody');
+            let soru = "";
+            let cevap = "";
+
+            if(tip === 'kdv') {
+                soru = "KDV Beyannamesi ne zaman verilir?";
+                cevap = "KDV1 beyannameleri, takip eden ayın 28. günü akşamına kadar verilmelidir.";
+            } else if(tip === 'iletisim') {
+                soru = "İletişim bilgileriniz nedir?";
+                cevap = "Tel: 0541 448 30 69 | E-posta: recep_baback@hotmail.com";
+            } else if(tip === 'sgk') {
+                soru = "SGK teşvikleri nereden bakılır?";
+                cevap = "Sitemizdeki SGK Teşvik Köprüsü veya www.sgk.gov.tr üzerinden inceleyebilirsiniz.";
+            } else if(tip === 'konum') {
+                soru = "Ofis konumunuz neresi?";
+                cevap = "Antalya / Döşemealtı bölgesindeyiz.";
+            }
+
+            // Kullanıcı Balonu
+            const uMsg = document.createElement('div');
+            uMsg.className = 'chat-msg user';
+            uMsg.textContent = soru;
+            body.appendChild(uMsg);
+
+            // Bot Yanıtı
+            setTimeout(() => {
+                const bMsg = document.createElement('div');
+                bMsg.className = 'chat-msg bot';
+                bMsg.textContent = cevap;
+                body.appendChild(bMsg);
+                body.scrollTop = body.scrollHeight;
+            }, 250);
+
+            body.scrollTop = body.scrollHeight;
+        }
+
+        /* PİYASA KURLARI */
+        async function kurlariCek() {
+            try {
+                const res = await fetch('https://api.genelpara.com/embed/altin.json');
+                const veri = await res.json();
+                if(veri && veri.USD) {
+                    document.getElementById('usdKur').textContent = veri.USD.satis + ' TL';
+                    document.getElementById('eurKur').textContent = veri.EUR.satis + ' TL';
+                    document.getElementById('altinKur').textContent = veri.GA.satis + ' TL';
+                }
+            } catch (err) {
+                console.log("Piyasa akışı aktif.");
+            }
+        }
+        kurlariCek();
+
+        /* KDV HESAPLAMA */
+        document.getElementById('hesaplaBtn').addEventListener('click', function() {
+            const tutar = parseFloat(document.getElementById('tutar').value);
+            const oran = parseFloat(document.getElementById('kdvOrani').value);
+            const sonuc = document.getElementById('kdvSonuc');
+
+            if (isNaN(tutar) || tutar <= 0) {
+                sonuc.style.display = 'block';
+                sonuc.textContent = 'Lütfen geçerli bir tutar giriniz.';
+                return;
+            }
+
+            const kdv = (tutar * oran) / 100;
+            const toplam = tutar + kdv;
+
+            sonuc.style.display = 'block';
+            sonuc.innerHTML = `KDV: <strong>${kdv.toFixed(2)} TL</strong> | Toplam: <strong>${toplam.toFixed(2)} TL</strong>`;
+        });
+
+        /* TEMA DEĞİŞTİRME */
+        const themeBtn = document.getElementById('themeBtn');
+        themeBtn.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            if(document.body.classList.contains('light-mode')) {
+                themeBtn.textContent = '🌙 Koyu Mod';
+            } else {
+                themeBtn.textContent = '🌓 Aydınlık Mod';
+            }
+        });
+    </script>
+
+</body>
+</html>
