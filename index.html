@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-site-verification" content="vV8UuC-4YTP-BurayaKendiDogrulamaKodunuzuGelecek">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Babacan Portal | Muhasebe, Yazılım & Finans</title>
     <style>
@@ -351,7 +352,7 @@
             font-weight: bold;
         }
 
-        /* SAĞ ALT KÖŞE FLOATING CHATBOT WIDGET (REVİZE EDİLDİ) */
+        /* SAĞ ALT KÖŞE FLOATING CHATBOT WIDGET */
         .chat-widget-btn {
             position: fixed;
             bottom: 25px;
@@ -386,7 +387,7 @@
             border: 2px solid var(--accent-primary);
             border-radius: 16px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.4);
-            display: none; /* Varsayılan gizli, JS ile açılacak */
+            display: none;
             flex-direction: column;
             z-index: 99998;
             overflow: hidden;
@@ -476,7 +477,7 @@
             color: #070a13;
         }
 
-        /* İLETİŞİM BÖLÜMÜ (EN ALTTA) */
+        /* İLETİŞİM BÖLÜMÜ */
         .contact-box {
             background: var(--card-bg);
             border-radius: 16px;
@@ -531,7 +532,7 @@
             <span class="ticker-item">🪙 Altın (Gram): <strong id="altinKur">3,050 TL</strong></span>
         </div>
 
-        <!-- ÜST NAVİGASYON (SEKMELER) -->
+        <!-- ÜST NAVİGASYON -->
         <nav class="navbar">
             <div class="nav-brand">⚡ Babacan Portal</div>
             <ul class="nav-links">
@@ -542,7 +543,7 @@
             <button class="theme-toggle" id="themeBtn">🌓 Tema Değiştir</button>
         </nav>
 
-        <!-- HEADER / GİRİŞ -->
+        <!-- HEADER -->
         <header>
             <h1>Recep Babacık</h1>
             <p>Muhasebe Danışmanlık, SGK Çözümleri & Babacan Rotası</p>
@@ -551,7 +552,7 @@
             </a>
         </header>
 
-        <!-- 1. GÜNCEL MEVZUAT VE SGK BİLGİLERİ KÖPRÜSÜ -->
+        <!-- 1. GÜNCEL MEVZUAT -->
         <div class="card-box" id="mevzuat-bolumu">
             <h2>⚖️ Güncel Mali Mevzuat & SGK Teşvik Köprüsü</h2>
             
@@ -567,196 +568,6 @@
                 <a href="https://www.sgk.gov.tr" target="_blank" class="external-link">🔗 SGK Resmi Mevzuat Portalı</a>
             </div>
 
-            <!-- HIZLI RESMİ PORTALLAR -->
             <h3 style="font-size: 1.05rem; margin: 15px 0 10px 0; color: var(--text-color);">🚀 Hızlı Resmi Bağlantılar</h3>
             <div class="portal-grid">
-                <a href="https://www.gib.gov.tr" target="_blank" class="portal-btn">GİB İnteraktif Vergi</a>
-                <a href="https://uyg.sgk.gov.tr/Kasin/faces/jsp/giris.jsp" target="_blank" class="portal-btn">SGK E-Bildirge</a>
-                <a href="https://www.turkiye.gov.tr" target="_blank" class="portal-btn">e-Devlet Kapısı</a>
-                <a href="https://www.resmigazete.gov.tr" target="_blank" class="portal-btn">Resmî Gazete</a>
-            </div>
-        </div>
-
-        <!-- HIZLI KDV HESAPLAYICI -->
-        <div class="card-box">
-            <h2>🧮 Hızlı KDV & Matrah Hesaplayıcı</h2>
-            <div class="calc-row">
-                <input type="number" id="tutar" placeholder="Tutar (TL)">
-                <select id="kdvOrani">
-                    <option value="20">%20 KDV</option>
-                    <option value="10">%10 KDV</option>
-                    <option value="1">%1 KDV</option>
-                </select>
-            </div>
-            <button class="calc-btn" id="hesaplaBtn">Hesapla</button>
-            <div id="kdvSonuc" class="calc-out" style="display: none;"></div>
-        </div>
-
-        <!-- 2. ORTADA YAN YANA VE EŞİT YOUTUBE SHORTS VİTRİNİ -->
-        <div class="card-box shorts-section" id="shorts-bolumu">
-            <h2>📱 Babacan Rotası - Öne Çıkan Shorts</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Yazılım ve güncel içeriklerime göz atın!</p>
-            
-            <div class="shorts-grid">
-                <!-- 1. Shorts Videonuz -->
-                <div class="shorts-item">
-                    <div class="shorts-wrapper">
-                        <iframe src="https://www.youtube.com/embed/1_HrwnbQ_-M" allowfullscreen></iframe>
-                    </div>
-                    <div class="shorts-desc">Shorts #1</div>
-                </div>
-
-                <!-- 2. Shorts Videonuz -->
-                <div class="shorts-item">
-                    <div class="shorts-wrapper">
-                        <iframe src="https://www.youtube.com/embed/CDZWCvcXq20" allowfullscreen></iframe>
-                    </div>
-                    <div class="shorts-desc">Shorts #2</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. İLETİŞİM BİLGİLERİ (EN ALTTA) -->
-        <div class="contact-box" id="iletisim-bolumu">
-            <h2>📞 İletişim Bilgileri</h2>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <p><strong>Ad Soyad:</strong> Recep Babacık</p>
-                    <p><strong>Konum:</strong> Antalya / Döşemealtı</p>
-                </div>
-                <div class="contact-item">
-                    <p><strong>Telefon:</strong> <a href="tel:05414483069" style="color: var(--accent-primary); text-decoration: none;">0541 448 30 69</a></p>
-                    <p><strong>E-Posta:</strong> <a href="mailto:recep_baback@hotmail.com" style="color: var(--accent-primary); text-decoration: none;">recep_baback@hotmail.com</a></p>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2026 Babacan Portal | Recep Babacık - Tüm Hakları Saklıdır.</p>
-        </footer>
-
-    </div>
-
-    <!-- SAĞ ALT KÖŞE CHATBOT WIDGET -->
-    <button class="chat-widget-btn" id="chatBtn" title="Asistanı Aç">💬</button>
-
-    <div class="chat-popup" id="chatPopup">
-        <div class="chat-header">
-            <span>🤖 Babacan Asistan</span>
-            <button class="chat-close" id="chatClose">&times;</button>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="chat-msg bot">Merhaba! Ben Babacan Asistan. Size nasıl yardımcı olabilirim? Aşağıdan bir soru seçebilirsiniz.</div>
-        </div>
-        <div class="chat-footer">
-            <div class="chat-quick-options">
-                <button class="chat-opt-btn" onclick="asistanYanitla('kdv')">📅 KDV Ne Zaman?</button>
-                <button class="chat-opt-btn" onclick="asistanYanitla('iletisim')">📞 İletişim</button>
-                <button class="chat-opt-btn" onclick="asistanYanitla('sgk')">💼 SGK Teşvik</button>
-                <button class="chat-opt-btn" onclick="asistanYanitla('konum')">📍 Konum</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        /* KESİN ÇALIŞAN CHATBOT AÇ/KAPA KONTROLÜ */
-        const chatBtn = document.getElementById('chatBtn');
-        const chatPopup = document.getElementById('chatPopup');
-        const chatClose = document.getElementById('chatClose');
-
-        chatBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            chatPopup.classList.toggle('open');
-        });
-
-        chatClose.addEventListener('click', function() {
-            chatPopup.classList.remove('open');
-        });
-
-        /* ASİSTAN YANIT MOTORU */
-        function asistanYanitla(tip) {
-            const body = document.getElementById('chatBody');
-            let soru = "";
-            let cevap = "";
-
-            if(tip === 'kdv') {
-                soru = "KDV Beyannamesi ne zaman verilir?";
-                cevap = "KDV1 beyannameleri, takip eden ayın 28. günü akşamına kadar verilmelidir.";
-            } else if(tip === 'iletisim') {
-                soru = "İletişim bilgileriniz nedir?";
-                cevap = "Tel: 0541 448 30 69 | E-posta: recep_baback@hotmail.com";
-            } else if(tip === 'sgk') {
-                soru = "SGK teşvikleri nereden bakılır?";
-                cevap = "Sitemizdeki SGK Teşvik Köprüsü veya www.sgk.gov.tr üzerinden inceleyebilirsiniz.";
-            } else if(tip === 'konum') {
-                soru = "Ofis konumunuz neresi?";
-                cevap = "Antalya / Döşemealtı bölgesindeyiz.";
-            }
-
-            // Kullanıcı Balonu
-            const uMsg = document.createElement('div');
-            uMsg.className = 'chat-msg user';
-            uMsg.textContent = soru;
-            body.appendChild(uMsg);
-
-            // Bot Yanıtı
-            setTimeout(() => {
-                const bMsg = document.createElement('div');
-                bMsg.className = 'chat-msg bot';
-                bMsg.textContent = cevap;
-                body.appendChild(bMsg);
-                body.scrollTop = body.scrollHeight;
-            }, 250);
-
-            body.scrollTop = body.scrollHeight;
-        }
-
-        /* PİYASA KURLARI */
-        async function kurlariCek() {
-            try {
-                const res = await fetch('https://api.genelpara.com/embed/altin.json');
-                const veri = await res.json();
-                if(veri && veri.USD) {
-                    document.getElementById('usdKur').textContent = veri.USD.satis + ' TL';
-                    document.getElementById('eurKur').textContent = veri.EUR.satis + ' TL';
-                    document.getElementById('altinKur').textContent = veri.GA.satis + ' TL';
-                }
-            } catch (err) {
-                console.log("Piyasa akışı aktif.");
-            }
-        }
-        kurlariCek();
-
-        /* KDV HESAPLAMA */
-        document.getElementById('hesaplaBtn').addEventListener('click', function() {
-            const tutar = parseFloat(document.getElementById('tutar').value);
-            const oran = parseFloat(document.getElementById('kdvOrani').value);
-            const sonuc = document.getElementById('kdvSonuc');
-
-            if (isNaN(tutar) || tutar <= 0) {
-                sonuc.style.display = 'block';
-                sonuc.textContent = 'Lütfen geçerli bir tutar giriniz.';
-                return;
-            }
-
-            const kdv = (tutar * oran) / 100;
-            const toplam = tutar + kdv;
-
-            sonuc.style.display = 'block';
-            sonuc.innerHTML = `KDV: <strong>${kdv.toFixed(2)} TL</strong> | Toplam: <strong>${toplam.toFixed(2)} TL</strong>`;
-        });
-
-        /* TEMA DEĞİŞTİRME */
-        const themeBtn = document.getElementById('themeBtn');
-        themeBtn.addEventListener('click', function() {
-            document.body.classList.toggle('light-mode');
-            if(document.body.classList.contains('light-mode')) {
-                themeBtn.textContent = '🌙 Koyu Mod';
-            } else {
-                themeBtn.textContent = '🌓 Aydınlık Mod';
-            }
-        });
-    </script>
-
-</body>
-</html>
+                <a href="
