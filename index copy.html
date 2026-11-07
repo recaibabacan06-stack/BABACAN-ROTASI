@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babacan Portal | Muhasebe, Yazılım & Döşemealtı Üssü</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-secondary: #34d399;
+            --accent-gold: #fbbf24;
+            --border-color: rgba(56, 189, 248, 0.25);
+            --item-bg: #1e293b;
+            --input-bg: #0f172a;
+        }
+
+        .light-mode {
+            --bg-color: #e2e8f0;
+            --card-bg: linear-gradient(145deg, #ffffff 0%, #cbd5e1 100%);
+            --text-color: #0f172a;
+            --text-muted: #475569;
+            --accent-primary: #0284c7;
+            --accent-secondary: #059669;
+            --accent-gold: #d97706;
+            --border-color: rgba(2, 132, 199, 0.3);
+            --item-bg: #ffffff;
+            --input-bg: #f8fafc;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.3s, color 0.3s, border 0.3s;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px 10px;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(52, 211, 153, 0.10) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        .container { max-width: 1050px; margin: 0 auto; }
+
+        .ticker-bar {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-gold);
+            padding: 14px 22px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 0.92rem;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.15);
+        }
+        .ticker-item strong { color: var(--accent-gold); font-weight: 700; }
+
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg); padding: 16px 25px; border-radius: 16px;
+            border: 2px solid var(--border-color); margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); flex-wrap: wrap; gap: 15px;
+        }
+        .nav-brand { font-size: 1.4rem; font-weight: 800; color: var(--accent-primary); display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; gap: 18px; list-style: none; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 0.92rem; }
+        .nav-links a:hover { color: var(--accent-primary); }
+
+        .theme-toggle {
+            background: var(--accent-gold); color: #0f172a; border: none;
+            padding: 9px 18px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 700;
+        }
+
+        header {
+            text-align: center; padding: 45px 20px; background: var(--card-bg);
+            border-radius: 20px; border: 2px solid var(--border-color); margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        header h1 { font-size: 2.5rem; color: var(--accent-primary); margin-bottom: 8px; font-weight: 800; }
+        header p { color: var(--text-muted); font-size: 1.05rem; }
+
+        .recept-banner {
+            background: var(--item-bg); border: 1px dashed var(--accent-secondary);
+            padding: 12px 20px; border-radius: 12px; margin-top: 15px;
+            font-size: 0.95rem; color: var(--accent-secondary); font-weight: 600; display: inline-block;
+        }
+
+        .btn-sub {
+            display: inline-block; background-color: #ef4444; color: white;
+            padding: 10px 24px; border-radius: 25px; text-decoration: none; font-weight: bold;
+            margin-top: 15px; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .card-box {
+            background: var(--card-bg); border-radius: 16px; padding: 26px;
+            margin-bottom: 25px; border: 2px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+        .card-box h2 {
+            color: var(--text-color); font-size: 1.35rem; margin-bottom: 18px;
+            display: flex; align-items: center; gap: 10px; font-weight: 700;
+        }
+
+        /* DÖŞEMEALTI ROTASI */
+        .rota-filters { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .rota-filter-btn {
+            background: var(--item-bg); color: var(--text-color); border: 1px solid var(--border-color);
+            padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.85rem;
+        }
+        .rota-filter-btn.active, .rota-filter-btn:hover { background: var(--accent-primary); color: #0f172a; border-color: var(--accent-primary); }
+
+        .rota-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; }
+        .rota-item {
+            background: var(--item-bg); border-radius: 12px; padding: 16px;
+            border: 1px solid var(--border-color); border-left: 4px solid var(--accent-gold);
+        }
+        .rota-item h3 { font-size: 1rem; color: var(--text-color); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+        .rota-item span.tag { font-size: 0.75rem; padding: 2px 8px; border-radius: 6px; background: rgba(56, 189, 248, 0.15); color: var(--accent-primary); }
+        .rota-item p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* MALİ TAKVİM */
+        .countdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .countdown-card {
+            background: var(--item-bg); padding: 16px; border-radius: 12px;
+            border: 1px solid var(--border-color); border-top: 4px solid var(--accent-gold); text-align: center;
+        }
+        .countdown-card h4 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 6px; }
+        .countdown-card .time-left { font-size: 1.15rem; font-weight: 800; color: var(--accent-gold); }
+
+        .article-box {
+            background: var(--item-bg); padding: 18px; border-radius: 12px;
+            border: 1px solid var(--border-color); border-left: 5px solid var(--accent-primary); margin-bottom: 15px;
+        }
+        .article-box h3 { color: var(--accent-primary); font-size: 1.1rem; margin-bottom: 8px; }
+        .article-box p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 12px; }
+        .external-link { display: inline-block; background: var(--accent-primary); color: #0f172a; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: bold; }
+
+        .portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+        .portal-btn {
+            display: flex; align-items: center; gap: 10px; background: var(--item-bg); color: var(--text-color);
+            padding: 12px 15px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 1px solid var(--border-color);
+        }
+        .portal-btn:hover { background: var(--accent-primary); color: #0f172a; border-color: var(--accent-primary); }
+
+        /* HESAPLAYICILAR VE YENİ ARAÇLAR */
+        .calculators-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .calc-box { background: var(--item-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .calc-box h3 { font-size: 1.05rem; margin-bottom: 12px; color: var(--accent-secondary); }
+        .calc-row { display: flex; gap: 10px; margin-bottom: 10px; }
+        .calc-row input, .calc-row select {
+            flex: 1; padding: 11px; border-radius: 8px; border: 1px solid var(--border-color);
+            background: var(--input-bg); color: var(--text-color); font-size: 0.95rem;
+        }
+        .calc-btn {
+            width: 100%; background: var(--accent-secondary); color: #0f172a; border: none;
+            padding: 12px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+        }
+        .calc-out { margin-top: 12px; padding: 12px; background: var(--input-bg); border-radius: 8px; font-size: 0.9rem; color: var(--text-color); border: 1px solid var(--accent-secondary); font-weight: 600; }
+
+        .notes-box textarea {
+            width: 100%; height: 110px; padding: 12px; border-radius: 8px;
+            border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); font-size: 0.95rem; resize: vertical; margin-bottom: 10px;
+        }
+
+        .shorts-section { text-align: center; }
+        .shorts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 600px; margin: 0 auto; }
+        @media (max-width: 600px) { .shorts-grid { grid-template-columns: 1fr; } }
+        .shorts-item { background: var(--item-bg); border-radius: 12px; overflow: hidden; border: 2px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2); }
+        .shorts-wrapper { position: relative; padding-bottom: 177.77%; height: 0; }
+        .shorts-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .shorts-desc { padding: 10px; font-size: 0.85rem; color: var(--accent-gold); text-align: center; font-weight: bold; }
+
+        .contact-box { background: var(--card-bg); border-radius: 16px; padding: 25px; margin-top: 25px; border: 2px solid var(--border-color); text-align: center; }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; text-align: left; max-width: 800px; margin: 0 auto; background: var(--item-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 30px; padding: 15px; border-top: 1px solid var(--border-color); }
+
+        /* WIDGETS */
+        .whatsapp-float {
+            position: fixed; bottom: 95px; right: 25px; background: #25d366; color: white;
+            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5); z-index: 99998; text-decoration: none;
+        }
+        .chat-widget-btn {
+            position: fixed; bottom: 25px; right: 25px; background: var(--accent-primary); color: #0f172a;
+            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; cursor: pointer; box-shadow: 0 5px 25px rgba(56, 189, 248, 0.5); z-index: 99999; border: none;
+        }
+        .chat-popup {
+            position: fixed; bottom: 155px; right: 25px; width: 320px; background: var(--card-bg);
+            border: 2px solid var(--accent-primary); border-radius: 16px; box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+            display: none; flex-direction: column; z-index: 99998; overflow: hidden;
+        }
+        .chat-popup.open { display: flex !important; }
+        .chat-header { background: var(--accent-primary); color: #0f172a; padding: 12px 15px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .chat-close { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #0f172a; font-weight: bold; }
+        .chat-body { padding: 15px; height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: var(--item-bg); }
+        .chat-msg { padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; max-width: 85%; line-height: 1.4; }
+        .chat-msg.bot { background: rgba(56, 189, 248, 0.15); color: var(--text-color); align-self: flex-start; border-left: 3px solid var(--accent-primary); }
+        .chat-msg.user { background: var(--accent-primary); color: #0f172a; align-self: flex-end; font-weight: 600; }
+        .chat-footer { padding: 10px; background: var(--card-bg); border-top: 1px solid var(--border-color); }
+        .chat-quick-options { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chat-opt-btn { background: var(--item-bg); color: var(--accent-primary); border: 1px solid var(--accent-primary); padding: 5px 10px; border-radius: 12px; font-size: 0.75rem; cursor: pointer; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- CANLI PİYASA & HAVA DURUMU -->
+        <div class="ticker-bar">
+            <span class="ticker-item">📍 Antalya / Döşemealtı: <strong>24°C Açık ☀️</strong></span>
+            <span class="ticker-item">💵 USD: <strong id="usdKur">Güncelleniyor...</strong></span>
+            <span class="ticker-item">💶 EUR: <strong id="eurKur">Güncelleniyor...</strong></span>
+            <span class="ticker-item">🪙 Gram Altın: <strong id="altinKur">Güncelleniyor...</strong></span>
+        </div>
+
+        <!-- ÜST NAVİGASYON -->
+        <nav class="navbar">
+            <div class="nav-brand">⚡ Babacan Portal</div>
+            <ul class="nav-links">
+                <li><a href="#dosemealti-rotasi">📍 Döşemealtı Rotası</a></li>
+                <li><a href="#mevzuat-bolumu">Mali Takvim</a></li>
+                <li><a href="#hesaplayicilar-bolumu">Hesaplama & Araçlar</a></li>
+                <li><a href="#notlar-bolumu">Notlar</a></li>
+                <li><a href="#iletisim-bolumu">İletişim</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeBtn">🌓 Tema Değiştir</button>
+        </nav>
+
+        <!-- HEADER -->
+        <header>
+            <h1>Recep Babacık</h1>
+            <p>Muhasebe Danışmanlık, SGK Çözümleri & Babacan Rotası</p>
+            <div class="recept-banner" id="guncelRecete">
+                💡 <strong>Günün Reçetesi:</strong> Beyannameler zamanında verilirse kahveler tatlı içer! ☕
+            </div>
+            <div>
+                <a href="https://www.youtube.com/@babacanrotasi" target="_blank" class="btn-sub">
+                    ▶ YouTube Kanalıma Abone Ol
+                </a>
+            </div>
+        </header>
+
+        <!-- DÖŞEMEALTI REHBERİ -->
+        <div class="card-box" id="dosemealti-rotasi">
+            <h2>🗺️ Babacan Rotası: Döşemealtı Yaşam & Noktalar Rehberi</h2>
+            <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 15px;">Döşemealtı bölgesindeki en önemli yemek, sağlık, eğitim ve yaşam noktalarını hızlıca keşfedin.</p>
+            
+            <div class="rota-filters">
+                <button class="rota-filter-btn active" onclick="filtrele('hepsi')">Tümü</button>
+                <button class="rota-filter-btn" onclick="filtrele('yemek')">🍽️ Restoran & Lezzet</button>
+                <button class="rota-filter-btn" onclick="filtrele('saglik')">🏥 Sağlık & Hastane</button>
+                <button class="rota-filter-btn" onclick="filtrele('okul')">🏫 Okullar & Eğitim</button>
+                <button class="rota-filter-btn" onclick="filtrele('alisveris')">🛒 Alışveriş & Market</button>
+            </div>
+
+            <div class="rota-grid" id="rotaGrid">
+                <div class="rota-item" data-kategori="yemek">
+                    <h3>Döşemealtı Yöresel Lezzetleri <span class="tag">Restoran</span></h3>
+                    <p>Bölgenin meşhur ev yemekleri ve taze et mangal noktaları. Yeniköy merkez çevresi.</p>
+                </div>
+                <div class="rota-item" data-kategori="saglik">
+                    <h3>Döşemealtı Devlet Hastanesi <span class="tag">Sağlık</span></h3>
+                    <p>İlçe halkının sağlık hizmetlerine hızlı erişim sağladığı modern bölge hastanesi.</p>
+                </div>
+                <div class="rota-item" data-kategori="okul">
+                    <h3>Yeniköy İlkokulu & Liseleri <span class="tag">Eğitim</span></h3>
+                    <p>Bölgenin köklü eğitim kurumları, ilk ve ortaöğretim okulları merkezi konumda.</p>
+                </div>
+                <div class="rota-item" data-kategori="alisveris">
+                    <h3>Tahtakale Spot & Marketler <span class="tag">Alışveriş</span></h3>
+                    <p>Günlük ev ve ofis ihtiyaçları için Döşemealtı şubeleri, Migros Jet ve A101.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MALİ TAKVİM -->
+        <div class="card-box" id="mevzuat-bolumu">
+            <h2>⏳ Mali Takvim & Güncel Mevzuat Köprüsü</h2>
+            
+            <div class="countdown-grid">
+                <div class="countdown-card">
+                    <h4>KDV1 Beyannamesi</h4>
+                    <div class="time-left" id="kdvSayac">Hesaplanıyor...</div>
+                </div>
+                <div class="countdown-card">
+                    <h4>Muhtasar & Prim Hizmet</h4>
+                    <div class="time-left" id="muhtasarSayac">Hesaplanıyor...</div>
+                </div>
+                <div class="countdown-card">
+                    <h4>Geçici Vergi Dönemi</h4>
+                    <div class="time-left" id="geciciSayac">Hesaplanıyor...</div>
+                </div>
+            </div>
+
+            <div class="article-box">
+                <h3>Vergi ve Mali Müşavirlik Çözümleri</h3>
+                <p>E-defter, e-fatura entegrasyonları, beyanname takvimi ve dönemsel mali kapanışlar hakkında en güncel rehberler.</p>
+                <a href="https://www.muhasebetr.com" target="_blank" class="external-link">🔗 Muhasebe TR Güncel Mevzuat</a>
+            </div>
+
+            <h3 style="font-size: 1.05rem; margin: 15px 0 10px 0; color: var(--text-color);">🚀 Hızlı Resmi Bağlantılar</h3>
+            <div class="portal-grid">
+                <a href="https://www.gib.gov.tr" target="_blank" class="portal-btn"><span>🏢</span> GİB İnteraktif Vergi</a>
+                <a href="https://uyg.sgk.gov.tr/Kasin/faces/jsp/giris.jsp" target="_blank" class="portal-btn"><span>📋</span> SGK E-Bildirge</a>
+                <a href="https://www.turkiye.gov.tr" target="_blank" class="portal-btn"><span>🇹🇷</span> e-Devlet Kapısı</a>
+                <a href="https://www.resmigazete.gov.tr" target="_blank" class="portal-btn"><span>📜</span> Resmî Gazete</a>
+            </div>
+        </div>
+
+        <!-- HESAPLAYICILAR & YENİ ARAÇLAR -->
+        <div class="card-box" id="hesaplayicilar-bolumu">
+            <h2>🧮 Pratik Mali & Döviz Araçları</h2>
+            <div class="calculators-container">
+                
+                <div class="calc-box">
+                    <h3>Hızlı KDV & Matrah</h3>
+                    <div class="calc-row">
+                        <input type="number" id="tutar" placeholder="Tutar (TL)">
+                        <select id="kdvOrani">
+                            <option value="20">%20 KDV</option>
+                            <option value="10">%10 KDV</option>
+                            <option value="1">%1 KDV</option>
+                        </select>
+                    </div>
+                    <button class="calc-btn" id="hesaplaBtn">KDV Hesapla</button>
+                    <div id="kdvSonuc" class="calc-out" style="display: none;"></div>
+                </div>
+
+                <div class="calc-box">
+                    <h3>Net / Brüt Personel Maliyeti</h3>
+                    <div class="calc-row">
+                        <input type="number" id="brutMaas" placeholder="Brüt Ücret (TL)">
+                    </div>
+                    <button class="calc-btn" id="personelHesaplaBtn" style="background: var(--accent-primary); color: #0f172a;">Maliyet Hesapla</button>
+                    <div id="personelSonuc" class="calc-out" style="display: none;"></div>
+                </div>
+
+                <!-- YENİ EKLENTİ: HIZLI DÖVİZ ÇEVİRİCİ -->
+                <div class="calc-box">
+                    <h3>Hızlı Döviz Çevirici (USD)</h3>
+                    <div class="calc-row">
+                        <input type="number" id="dolarTutar" placeholder="Dolar ($)">
+                    </div>
+                    <button class="calc-btn" id="dolarCevirBtn" style="background: var(--accent-gold); color: #0f172a;">TL'ye Çevir</button>
+                    <div id="dolarSonuc" class="calc-out" style="display: none;"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- NOTLAR -->
+        <div class="card-box notes-box" id="notlar-bolumu">
+            <h2>📝 Babacan Not Defteri <span style="font-size: 0.8rem; color: var(--accent-secondary); font-weight: normal;">(Tarayıcıda saklanır)</span></h2>
+            <textarea id="userNotes" placeholder="Döşemealtı dükkan evrakları, notlar..."></textarea>
+            <button class="calc-btn" id="saveNotesBtn" style="width: auto; padding: 8px 20px;">Notu Kaydet 💾</button>
+        </div>
+
+        <!-- YOUTUBE SHORTS -->
+        <div class="card-box shorts-section" id="shorts-bolumu">
+            <h2>📱 Babacan Rotası - Öne Çıkan Shorts</h2>
+            <div class="shorts-grid">
+                <div class="shorts-item">
+                    <div class="shorts-wrapper">
+                        <iframe src="https://www.youtube.com/embed/1_HrwnbQ_-M" allowfullscreen></iframe>
+                    </div>
+                    <div class="shorts-desc">Shorts #1</div>
+                </div>
+                <div class="shorts-item">
+                    <div class="shorts-wrapper">
+                        <iframe src="https://www.youtube.com/embed/CDZWCvcXq20" allowfullscreen></iframe>
+                    </div>
+                    <div class="shorts-desc">Shorts #2</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- İLETİŞİM -->
+        <div class="contact-box" id="iletisim-bolumu">
+            <h2>📞 İletişim Bilgileri</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <p><strong>Ad Soyad:</strong> Recep Babacık</p>
+                    <p><strong>Konum:</strong> Antalya / Döşemealtı</p>
+                </div>
+                <div class="contact-item">
+                    <p><strong>Telefon:</strong> <a href="tel:05414483069" style="color: var(--accent-primary); text-decoration: none;">0541 448 30 69</a></p>
+                    <p><strong>E-Posta:</strong> <a href="mailto:recep_baback@hotmail.com" style="color: var(--accent-primary); text-decoration: none;">recep_baback@hotmail.com</a></p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Babacan Portal | Recep Babacık - Tüm Hakları Saklıdır.</p>
+        </footer>
+
+    </div>
+
+    <!-- WHATSAPP & CHATBOT -->
+    <a href="https://wa.me/905414483069?text=Merhaba%20Recep%20Bey,%20danışmanlık%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="whatsapp-float" title="WhatsApp ile Ulaşın">💬</a>
+
+    <button class="chat-widget-btn" id="chatBtn" title="Asistanı Aç">🤖</button>
+
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+            <span>⚡ Babacan Asistan</span>
+            <button class="chat-close" id="chatClose">&times;</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-msg bot">Merhaba! Ben Babacan Asistan. Size nasıl yardımcı olabilirim?</div>
+        </div>
+        <div class="chat-footer">
+            <div class="chat-quick-options">
+                <button class="chat-opt-btn" onclick="asistanYanitla('kdv')">📅 KDV Ne Zaman?</button>
+                <button class="chat-opt-btn" onclick="asistanYanitla('sirket')">🏢 Şirket Kuruluşu</button>
+                <button class="chat-opt-btn" onclick="asistanYanitla('konum')">📍 Konum</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let guncelDolarKur = 36.85; // Global kur değişkeni
+
+        function filtrele(kategori) {
+            const btns = document.querySelectorAll('.rota-filter-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const items = document.querySelectorAll('.rota-item');
+            items.forEach(item => {
+                if (kategori === 'hepsi' || item.getAttribute('data-kategori') === kategori) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        const chatBtn = document.getElementById('chatBtn');
+        const chatPopup = document.getElementById('chatPopup');
+        const chatClose = document.getElementById('chatClose');
+
+        chatBtn.addEventListener('click', (e) => { e.stopPropagation(); chatPopup.classList.toggle('open'); });
+        chatClose.addEventListener('click', () => { chatPopup.classList.remove('open'); });
+
+        function asistanYanitla(tip) {
+            const body = document.getElementById('chatBody');
+            let soru = "", cevap = "";
+            if(tip === 'kdv') {
+                soru = "KDV Beyannamesi ne zaman verilir?";
+                cevap = "KDV1 beyannameleri, takip eden ayın 28. günü akşamına kadar verilmelidir.";
+            } else if(tip === 'sirket') {
+                soru = "Şirket kuruluşu için ne gerekiyor?";
+                cevap = "Şahıs veya limited şirket kuruluşu, ana faaliyet konusu ve mali müşavir desteğiyle hızlıca tamamlanır.";
+            } else if(tip === 'konum') {
+                soru = "Ofis konumunuz neresi?";
+                cevap = "Antalya / Döşemealtı bölgesindeyiz.";
+            }
+            const uMsg = document.createElement('div'); uMsg.className = 'chat-msg user'; uMsg.textContent = soru; body.appendChild(uMsg);
+            setTimeout(() => {
+                const bMsg = document.createElement('div'); bMsg.className = 'chat-msg bot'; bMsg.textContent = cevap; body.appendChild(bMsg);
+                body.scrollTop = body.scrollHeight;
+            }, 250);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        async function kurlariCek() {
+            try {
+                const res = await fetch('https://api.genelpara.com/embed/altin.json');
+                const veri = await res.json();
+                if(veri && veri.USD) {
+                    guncelDolarKur = parseFloat(veri.USD.satis.replace(',', '.'));
+                    document.getElementById('usdKur').textContent = veri.USD.satis + ' TL';
+                    document.getElementById('eurKur').textContent = veri.EUR.satis + ' TL';
+                    document.getElementById('altinKur').textContent = veri.GA.satis + ' TL';
+                    return;
+                }
+            } catch (err) { console.log("Kur akışı güncel."); }
+            document.getElementById('usdKur').textContent = guncelDolarKur + ' TL';
+            document.getElementById('eurKur').textContent = '38.40 TL';
+            document.getElementById('altinKur').textContent = '3,150 TL';
+        }
+        kurlariCek();
+
+        document.getElementById('hesaplaBtn').addEventListener('click', function() {
+            const tutar = parseFloat(document.getElementById('tutar').value);
+            const oran = parseFloat(document.getElementById('kdvOrani').value);
+            const sonuc = document.getElementById('kdvSonuc');
+            if (isNaN(tutar) || tutar <= 0) { sonuc.style.display = 'block'; sonuc.textContent = 'Geçerli tutar giriniz.'; return; }
+            const kdv = (tutar * oran) / 100;
+            sonuc.style.display = 'block';
+            sonuc.innerHTML = `KDV: <strong>${kdv.toFixed(2)} TL</strong> | Toplam: <strong>${(tutar + kdv).toFixed(2)} TL</strong>`;
+        });
+
+        document.getElementById('personelHesaplaBtn').addEventListener('click', function() {
+            const brut = parseFloat(document.getElementById('brutMaas').value);
+            const sonuc = document.getElementById('personelSonuc');
+            if (isNaN(brut) || brut <= 0) { sonuc.style.display = 'block'; sonuc.textContent = 'Geçerli brüt giriniz.'; return; }
+            const maliyet = brut + (brut * 0.155) + (brut * 0.02);
+            sonuc.style.display = 'block';
+            sonuc.innerHTML = `İşverene Toplam Maliyet: <strong>${maliyet.toFixed(0)} TL</strong>`;
+        });
+
+        /* YENİ EKLENTİ İŞLEVİ: DÖVİZ ÇEVİRİCİ */
+        document.getElementById('dolarCevirBtn').addEventListener('click', function() {
+            const dolar = parseFloat(document.getElementById('dolarTutar').value);
+            const sonuc = document.getElementById('dolarSonuc');
+            if (isNaN(dolar) || dolar <= 0) { sonuc.style.display = 'block'; sonuc.textContent = 'Geçerli dolar tutarı giriniz.'; return; }
+            const toplamTl = dolar * guncelDolarKur;
+            sonuc.style.display = 'block';
+            sonuc.innerHTML = `${dolar} USD = <strong>${toplamTl.toFixed(2)} TL</strong> <span style="font-size:0.75rem; color:var(--text-muted);">(Kur: ${guncelDolarKur})</span>`;
+        });
+
+        const userNotes = document.getElementById('userNotes');
+        if(localStorage.getItem('babacanNotlar')) userNotes.value = localStorage.getItem('babacanNotlar');
+        document.getElementById('saveNotesBtn').addEventListener('click', () => {
+            localStorage.setItem('babacanNotlar', userNotes.value);
+            alert('Notlar kaydedildi! 💾');
+        });
+
+        function hedefeKalanGun(hAy, hGun) {
+            const simdi = new Date();
+            let hedef = new Date(simdi.getFullYear(), hAy - 1, hGun);
+            if (simdi > hedef) hedef = new Date(simdi.getFullYear() + 1, hAy - 1, hGun);
+            return Math.ceil((hedef - simdi) / (1000 * 60 * 60 * 24)) + " Gün Kaldı ⏳";
+        }
+        document.getElementById('kdvSayac').textContent = hedefeKalanGun(11, 28);
+        document.getElementById('muhtasarSayac').textContent = hedefeKalanGun(11, 26);
+        document.getElementById('geciciSayac').textContent = hedefeKalanGun(11, 17);
+
+        const themeBtn = document.getElementById('themeBtn');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            themeBtn.textContent = document.body.classList.contains('light-mode') ? '🌙 Lacivert Mod' : '🌓 Açık Mod';
+        });
+    </script>
+
+</body>
+</html>
